@@ -11,48 +11,96 @@ class App extends React.Component {
       bestScore: 0,
       numbers: [
         {
-          content: 0,
+          content: "ichi",
           wasClicked: false,
         },
         {
-          content: 1,
+          content: "ni",
           wasClicked: false,
         },
         {
-          content: 2,
+          content: "san",
           wasClicked: false,
         },
         {
-          content: 3,
+          content: "shi",
           wasClicked: false,
         },
         {
-          content: 4,
+          content: "go",
           wasClicked: false,
         },
         {
-          content: 5,
+          content: "roku",
           wasClicked: false,
         },
         {
-          content: 6,
+          content: "shichi",
           wasClicked: false,
         },
         {
-          content: 7,
+          content: "hachi",
           wasClicked: false,
         },
         {
-          content: 8,
+          content: "kyuu",
           wasClicked: false,
         },
         {
-          content: 9,
+          content: "juu",
           wasClicked: false,
         },
       ],
     };
+
+    this.checkScore = this.checkScore.bind(this);
+    this.randomizeNumbers = this.randomizeNumbers.bind(this);
   }
+
+  checkScore(item) {
+    if (item.wasClicked) {
+      this.setState({
+        score: 0,
+        bestScore: this.state.score,
+        numbers: this.randomizeNumbers(),
+      });
+    } else {
+      this.state.numbers.forEach((num) => {
+        if (item.content == num.content) {
+          num.wasClicked = true;
+        }
+      });
+      this.setState({
+        score: this.state.score + 1,
+        bestScore: this.state.score + 1,
+        numbers: this.randomizeNumbers(),
+      });
+    }
+  }
+
+  randomizeNumbers() {
+    let array = this.state.numbers;
+    let index = this.state.numbers.length,
+      temporaryIndex,
+      randomIndex;
+
+    while (0 !== index) {
+      randomIndex = Math.floor(Math.random() * index);
+      index -= 1;
+
+      temporaryIndex = array[index];
+      array[index] = array[randomIndex];
+      array[randomIndex] = temporaryIndex;
+    }
+
+    return array;
+  }
+
+  componentDidMount() {
+    let array = this.randomizeNumbers();
+    this.setState({ numbers: array });
+  }
+
   render() {
     return (
       <main className="App">
@@ -67,7 +115,11 @@ class App extends React.Component {
         <section className="App-container">
           <div className="App-item-container">
             {this.state.numbers.map((num) => {
-              return <GameItem value={num} />;
+              return (
+                <div key={num.content + ""}>
+                  <GameItem value={num} method={this.checkScore} />
+                </div>
+              );
             })}
           </div>
         </section>

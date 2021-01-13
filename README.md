@@ -21,8 +21,6 @@
 - a scoreboard, which counts the current score,
 - and a best score, which shows the best score you achieved thus far.
 
-- You also need a couple of cards that display images and possibly informational text.
-
 2. There should be a function that displays the cards in a random order anytime a user clicks one.
 
 - Be sure to invoke that function when the component mounts.

@@ -2,4 +2,16 @@
   border: 1px solid "#eee";
   width: calc(100px - 4vmin);
   height: calc(100px - 4vmin);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.GameItem-div > p {
+  text-align: center;
+}
+
+.GameItem-div:hover {
+  cursor: pointer;
+  background-color: burlywood;
 }
