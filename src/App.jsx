@@ -58,11 +58,15 @@ class App extends React.Component {
   }
 
   checkScore(item) {
+    let tempArray = this.randomizeNumbers();
     if (item.wasClicked) {
+      tempArray.forEach((item) => {
+        item.wasClicked = false;
+      });
       this.setState({
         score: 0,
         bestScore: this.state.score,
-        numbers: this.randomizeNumbers(),
+        numbers: tempArray,
       });
     } else {
       this.state.numbers.forEach((num) => {
@@ -73,7 +77,7 @@ class App extends React.Component {
       this.setState({
         score: this.state.score + 1,
         bestScore: this.state.score + 1,
-        numbers: this.randomizeNumbers(),
+        numbers: tempArray,
       });
     }
   }
