@@ -1,0 +1,5 @@
+.GameItem-div {
+  border: 1px solid "#eee";
+  width: calc(100px - 4vmin);
+  height: calc(100px - 4vmin);
+}

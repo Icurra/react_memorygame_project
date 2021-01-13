@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# React: Memory Game Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting Started
 
-## Available Scripts
+- Open your command line and navigate to your repos directory (if you do not have a repos folder, then you can use mkdir repos to create one)
+- Use this template repository to start a new project in your repos folder: git clone <repo_name> cd repo_name to navigate into your new repo directory
+- Make sure to run npm install to fetch the dependencies for the project
+- Start Visual Studio Code and select 'Open Folder'. Then select repo_name to open the folder in the editor (or just type code . in your terminal inside the repo directory)
+- Follow the instructions on the README.md file to complete exercises
+- Open the app.js file to get started
 
-In the project directory, you can run:
+## Project
 
-### `yarn start`
+- View this working example to see the end goal
+- Take a little bit of time to think about how you want to implement your application, the features you want to implement, which components you need, and how to structure your application.
+- You can choose to replicate with numbers, or any other group of items (e.g. images, colors, words)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Your application should include:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Cards with the memory items,
+- a scoreboard, which counts the current score,
+- and a best score, which shows the best score you achieved thus far.
 
-### `yarn test`
+- You also need a couple of cards that display images and possibly informational text.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. There should be a function that displays the cards in a random order anytime a user clicks one.
 
-### `yarn build`
+- Be sure to invoke that function when the component mounts.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. So now that you thought about the structure of your application, set up the folder structure, and start creating the class components.
+4. Style your application so you can show it off!
+5. As always, push the project to GitHub.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- First, build this project with class components. Once you complete the project, you have the option of rewriting the class components as functional components with react hooks.
