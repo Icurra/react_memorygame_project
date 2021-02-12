@@ -88,7 +88,10 @@ class App extends React.Component {
       });
       this.setState({
         score: 0,
-        bestScore: this.state.score,
+        bestScore:
+          this.state.bestScore > this.state.score
+            ? this.state.bestScore
+            : this.state.score,
         numbers: tempArray,
       });
     } else {
@@ -113,7 +116,10 @@ class App extends React.Component {
         });
         this.setState({
           score: this.state.score + 1,
-          bestScore: this.state.score + 1,
+          bestScore:
+            this.state.bestScore > this.state.score
+              ? this.state.bestScore
+              : this.state.score + 1,
           numbers: tempArray,
         });
       }
