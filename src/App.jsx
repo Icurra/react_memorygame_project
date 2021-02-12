@@ -1,6 +1,7 @@
 import "./App.css";
 import * as React from "react";
 import GameItem from "./components/GameItem";
+import Congratulations from "./components/Congratulations";
 
 class App extends React.Component {
   constructor(props) {
@@ -71,9 +72,17 @@ class App extends React.Component {
     return Math.floor(Math.random() * 16777215).toString(16);
   }
 
+  flashCongratulations() {
+    const congrats = document.getElementById("congratulations");
+    congrats.classList.toggle("show-congrats");
+    setTimeout(() => congrats.classList.toggle("show-congrats"), 5000);
+  }
+
   checkScore(item) {
     let tempArray = this.randomizeNumbers();
+    // User is still playing
     if (item.wasClicked) {
+      // User has lost and the game resets
       tempArray.forEach((item) => {
         item.wasClicked = false;
       });
@@ -83,16 +92,31 @@ class App extends React.Component {
         numbers: tempArray,
       });
     } else {
-      this.state.numbers.forEach((num) => {
-        if (item.content == num.content) {
-          num.wasClicked = true;
-        }
-      });
-      this.setState({
-        score: this.state.score + 1,
-        bestScore: this.state.score + 1,
-        numbers: tempArray,
-      });
+      if (this.state.score === 9) {
+        // User has won the game
+        tempArray.forEach((item) => {
+          item.wasClicked = false;
+        });
+        this.setState({
+          score: 0,
+          bestScore: 10,
+          numbers: tempArray,
+        });
+        this.flashCongratulations();
+      } else {
+        // User is still playing, mark the item as 'clicked'
+        // Continue playing
+        this.state.numbers.forEach((num) => {
+          if (item.content == num.content) {
+            num.wasClicked = true;
+          }
+        });
+        this.setState({
+          score: this.state.score + 1,
+          bestScore: this.state.score + 1,
+          numbers: tempArray,
+        });
+      }
     }
   }
 
@@ -136,6 +160,7 @@ class App extends React.Component {
           </div>
         </header>
         <section className="App-container">
+          <Congratulations />
           <div className="App-item-container">
             {this.state.numbers.map((num) => {
               return (
