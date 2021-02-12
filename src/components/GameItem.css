@@ -2,13 +2,13 @@
   border: 1px solid "#eee";
   width: calc(100px - 4vmin);
   height: calc(100px - 4vmin);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
 }
 
 .GameItem-div > p {
+  margin: 0 auto;
   text-align: center;
+  background-color: azure;
 }
 
 .GameItem-div:hover {

@@ -13,48 +13,62 @@ class App extends React.Component {
         {
           content: "ichi",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "ni",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "san",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "shi",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "go",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "roku",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "shichi",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "hachi",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "kyuu",
           wasClicked: false,
+          color: this.randomHEX(),
         },
         {
           content: "juu",
           wasClicked: false,
+          color: this.randomHEX(),
         },
       ],
     };
 
     this.checkScore = this.checkScore.bind(this);
     this.randomizeNumbers = this.randomizeNumbers.bind(this);
+  }
+
+  randomHEX() {
+    return Math.floor(Math.random() * 16777215).toString(16);
   }
 
   checkScore(item) {
@@ -94,7 +108,9 @@ class App extends React.Component {
 
       temporaryIndex = array[index];
       array[index] = array[randomIndex];
+      array[index].color = this.randomHEX();
       array[randomIndex] = temporaryIndex;
+      array[randomIndex].color = this.randomHEX();
     }
 
     return array;
@@ -110,7 +126,10 @@ class App extends React.Component {
       <main className="App">
         <header className="App-header">
           <h1>React Memory Game</h1>
-          <p>Click on one of the numbers to get started!</p>
+          <p>
+            Objective: Select a word that you haven't selected yet.<br></br>
+            Highest score is 10!
+          </p>
           <div className="App-scoreboard">
             <span>Score: {this.state.score}</span>
             <span>Best Score: {this.state.bestScore}</span>
@@ -120,8 +139,12 @@ class App extends React.Component {
           <div className="App-item-container">
             {this.state.numbers.map((num) => {
               return (
-                <div key={num.content + ""}>
-                  <GameItem value={num} method={this.checkScore} />
+                <div key={num.content + "_key"}>
+                  <GameItem
+                    value={num}
+                    method={this.checkScore}
+                    color={num.color}
+                  />
                 </div>
               );
             })}

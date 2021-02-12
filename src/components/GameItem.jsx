@@ -6,6 +6,7 @@ class GameItem extends React.Component {
     return (
       <div
         className="GameItem-div"
+        style={{ backgroundColor: "#" + this.props.color }}
         onClick={() => this.props.method(this.props.value)}
       >
         <p>{this.props.value.content}</p>
