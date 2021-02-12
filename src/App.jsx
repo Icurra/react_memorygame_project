@@ -139,13 +139,12 @@ class App extends React.Component {
           <div className="App-item-container">
             {this.state.numbers.map((num) => {
               return (
-                <div key={num.content + "_key"}>
-                  <GameItem
-                    value={num}
-                    method={this.checkScore}
-                    color={num.color}
-                  />
-                </div>
+                <GameItem
+                  key={num.content + "_key"}
+                  value={num}
+                  method={this.checkScore}
+                  color={num.color}
+                />
               );
             })}
           </div>
