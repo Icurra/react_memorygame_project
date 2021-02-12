@@ -1,64 +1,66 @@
 import "./App.css";
-import * as React from "react";
+import React, { Component } from "react";
 import GameItem from "./components/GameItem";
 import Congratulations from "./components/Congratulations";
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
+    const best = localStorage.getItem("best");
+
     this.state = {
       score: 0,
-      bestScore: 0,
+      bestScore: best ? best : 0,
       numbers: [
         {
           content: "ichi",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "ni",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "san",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "shi",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "go",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "roku",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "shichi",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "hachi",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "kyuu",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
         {
           content: "juu",
-          wasClicked: false,
+          wasViewed: false,
           color: this.randomHEX(),
         },
       ],
@@ -78,13 +80,52 @@ class App extends React.Component {
     setTimeout(() => congrats.classList.toggle("show-congrats"), 5000);
   }
 
-  checkScore(item) {
+  checkScore(item, answer) {
     let tempArray = this.randomizeNumbers();
-    // User is still playing
-    if (item.wasClicked) {
-      // User has lost and the game resets
+    // Checks item has been click vs user answer
+    if (item.wasViewed === answer) {
+      let incrementedScore = this.state.score + 1;
+      // Correct answer
+      // Continue playing the game, increasing the score
+      if (incrementedScore === 10) {
+        // User has won the game
+        // Reset game, save best score
+
+        // Display congratulations message
+        this.flashCongratulations();
+
+        // Set score to 0, save best score, randomize numbers
+        localStorage.setItem("best", incrementedScore);
+        this.setState({
+          score: 0,
+          bestScore: incrementedScore,
+          numbers: tempArray,
+        });
+      } else {
+        // Continue playing
+        tempArray.forEach((num) => {
+          if (num.content == item.content) {
+            num.wasViewed = true;
+          }
+        });
+        const newBest =
+          this.state.bestScore > incrementedScore
+            ? this.state.bestScore
+            : incrementedScore;
+
+        localStorage.setItem("best", newBest);
+
+        this.setState({
+          score: incrementedScore,
+          bestScore: newBest,
+          numbers: tempArray,
+        });
+      }
+    } else {
+      // Incorrect answer, reset game
+      // ========= REFACTOR TO DRY
       tempArray.forEach((item) => {
-        item.wasClicked = false;
+        item.wasViewed = false;
       });
       this.setState({
         score: 0,
@@ -94,35 +135,6 @@ class App extends React.Component {
             : this.state.score,
         numbers: tempArray,
       });
-    } else {
-      if (this.state.score === 9) {
-        // User has won the game
-        tempArray.forEach((item) => {
-          item.wasClicked = false;
-        });
-        this.setState({
-          score: 0,
-          bestScore: 10,
-          numbers: tempArray,
-        });
-        this.flashCongratulations();
-      } else {
-        // User is still playing, mark the item as 'clicked'
-        // Continue playing
-        this.state.numbers.forEach((num) => {
-          if (item.content == num.content) {
-            num.wasClicked = true;
-          }
-        });
-        this.setState({
-          score: this.state.score + 1,
-          bestScore:
-            this.state.bestScore > this.state.score
-              ? this.state.bestScore
-              : this.state.score + 1,
-          numbers: tempArray,
-        });
-      }
     }
   }
 
@@ -152,12 +164,15 @@ class App extends React.Component {
   }
 
   render() {
+    const randomIndex = Math.floor(Math.random() * this.state.numbers.length);
+    const selectedNum = this.state.numbers[randomIndex];
+
     return (
       <main className="App">
         <header className="App-header">
           <h1>React Memory Game</h1>
           <p>
-            Objective: Select a word that you haven't selected yet.<br></br>
+            Objective: Answer the questions to test your memory.<br></br>
             Highest score is 10!
           </p>
           <div className="App-scoreboard">
@@ -168,16 +183,24 @@ class App extends React.Component {
         <section className="App-container">
           <Congratulations />
           <div className="App-item-container">
-            {this.state.numbers.map((num) => {
-              return (
-                <GameItem
-                  key={num.content + "_key"}
-                  value={num}
-                  method={this.checkScore}
-                  color={num.color}
-                />
-              );
-            })}
+            <GameItem value={selectedNum} />
+            <div>
+              <h3>Have you seen this number yet?</h3>
+              <button
+                id="no"
+                className="btn"
+                onClick={() => this.checkScore(selectedNum, false)}
+              >
+                No
+              </button>
+              <button
+                id="yes"
+                className="btn"
+                onClick={() => this.checkScore(selectedNum, true)}
+              >
+                Yes
+              </button>
+            </div>
           </div>
         </section>
       </main>
