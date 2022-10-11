@@ -14,52 +14,47 @@ class App extends Component {
       bestScore: best ? best : 0,
       numbers: [
         {
-          content: "ichi",
+          content: "Will",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "ni",
+          content: "Fear",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "san",
+          content: "Hope",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "shi",
+          content: "Greed",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "go",
+          content: "Love",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "roku",
+          content: "Rage",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "shichi",
+          content: "Compassion",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "hachi",
+          content: "Death",
           wasViewed: false,
           color: this.randomHEX(),
         },
         {
-          content: "kyuu",
-          wasViewed: false,
-          color: this.randomHEX(),
-        },
-        {
-          content: "juu",
+          content: "Life",
           wasViewed: false,
           color: this.randomHEX(),
         },
@@ -82,19 +77,14 @@ class App extends Component {
 
   checkScore(item, answer) {
     let tempArray = this.randomizeNumbers();
-    // Checks item has been click vs user answer
+    
     if (item.wasViewed === answer) {
       let incrementedScore = this.state.score + 1;
-      // Correct answer
-      // Continue playing the game, increasing the score
+      
       if (incrementedScore === 10) {
-        // User has won the game
-        // Reset game, save best score
-
-        // Display congratulations message
+        
         this.flashCongratulations();
 
-        // Set score to 0, save best score, randomize numbers
         localStorage.setItem("best", incrementedScore);
         this.setState({
           score: 0,
@@ -102,7 +92,7 @@ class App extends Component {
           numbers: tempArray,
         });
       } else {
-        // Continue playing
+        
         tempArray.forEach((num) => {
           if (num.content == item.content) {
             num.wasViewed = true;
@@ -122,8 +112,7 @@ class App extends Component {
         });
       }
     } else {
-      // Incorrect answer, reset game
-      // ========= REFACTOR TO DRY
+      
       tempArray.forEach((item) => {
         item.wasViewed = false;
       });
@@ -170,14 +159,14 @@ class App extends Component {
     return (
       <main className="App">
         <header className="App-header">
-          <h1>React Memory Game</h1>
+          <h1>React Memory Project</h1>
           <p>
-            Objective: Answer the questions to test your memory.<br></br>
-            Highest score is 10!
+            Goal: Memorize the Lantern Corps to test your memory.<br></br>
+            Highest score is Nine!
           </p>
           <div className="App-scoreboard">
             <span>Score: {this.state.score}</span>
-            <span>Best Score: {this.state.bestScore}</span>
+            <span>High Score: {this.state.bestScore}</span>
           </div>
         </header>
         <section className="App-container">
@@ -185,7 +174,7 @@ class App extends Component {
           <div className="App-item-container">
             <GameItem value={selectedNum} />
             <div>
-              <h3>Have you seen this number yet?</h3>
+              <h3>Have you seen this Lantern Corps yet?</h3>
               <button
                 id="no"
                 className="btn"
